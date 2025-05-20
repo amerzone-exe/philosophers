@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 09:10:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/04/23 09:25:34 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:47:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_last_args(char *argv)
 	while (is_whitespace(argv[i]) && argv[i])
 		i++;
 	if (!is_bracket (argv[i]) || !argv[i])
-		exit_error("'[' is missing");
+		exit_error("Last argument isn't valid");
 	i++;
 	if (argv[i] == '+')
 		i++;
@@ -31,7 +31,7 @@ void	check_last_args(char *argv)
 	while(ft_isdigit(argv[i]) && argv[i])
 		i++;
 	if (!is_bracket (argv[i]) || !argv[i])
-		exit_error("']' is missing");
+		exit_error("Last argument isn't valid");
 	i++;
 	while (is_whitespace(argv[i]) && argv[i])
 		i++;

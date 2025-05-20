@@ -6,7 +6,7 @@
 #    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 11:08:12 by jpiquet           #+#    #+#              #
-#    Updated: 2025/04/24 18:47:31 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/05/05 13:26:55 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,9 @@ SRCDIR = src
 SRC = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/parsing.c \
 		$(SRCDIR)/utils.c \
+		$(SRCDIR)/utils_2.c \
+		$(SRCDIR)/exit.c \
+		
 
 OBJDIR = obj
 OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
