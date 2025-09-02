@@ -6,7 +6,7 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/07 15:05:55 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/08/25 18:43:39 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void	*routine(void *args)
 	/*wait for all odd philo----------------------------*/
 	if (philo->philo_id % 2 != 0)
 		usleep(100);
-	
 	/*getting forks phase-------------------------------*/
-	
 	while(1)//(actual_time.tv_usec - last_meal.tv_usec) < philo->args->time_to_die)
 	{
 		if (philo->left_fork->is_taken == 0)
@@ -53,7 +51,7 @@ void	*routine(void *args)
 		/*eating phase-------------------------------*/
 		
 		// printf("philo %d left fork = %d right fork %d\n", philo->philo_id, philo->left_fork->is_taken, philo->right_fork->is_taken);
-		
+
 		if (philo->left_fork->is_taken == 1 && philo->right_fork->is_taken == 1)
 		{
 			gettimeofday(&actual_time, NULL);

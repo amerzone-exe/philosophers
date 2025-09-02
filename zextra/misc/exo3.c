@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   exo3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 13:22:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/08/25 18:01:29 by jpiquet          ###   ########.fr       */
+/*   Created: 2025/04/09 10:19:15 by jpiquet           #+#    #+#             */
+/*   Updated: 2025/04/09 10:20:39 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-void	exit_error(const char *str)
+int main()
 {
-	perror(str);
-	exit (1);
-}
+	pthread_t thread[5];
+	int i = 0;
 
-void	destroy_mutexes(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo->args->nb_of_philo)
+	while (i < 5)
 	{
-		pthread_mutex_destroy(&philo[i].philo_mutex);
-		i++;
+		pthread_create()
 	}
+	
 }
