@@ -6,111 +6,79 @@
 /*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:47:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/05 14:59:53 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/11 18:58:00 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-// void	take_forks(t_philo *philo)
-// {
-// 	struct timeval timestamp;
+size_t	get_real_time()
+{
+	struct	timeval time;
+	size_t res;
+
+	gettimeofday(&time, NULL);
+	res = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (res);
+}
+
+void	init_time_philo(t_philo *philo)
+{
+	philo->start_time = get_real_time();
+	philo->last_meal = get_real_time();
+}
+
+int	check_dead(t_philo *philo)
+{
+	size_t	actual_time;
+	size_t	time_since_meal;
+
+	actual_time = get_real_time;
+	time_since_meal = actual_time - philo->last_meal;
+	if (time_since_meal > philo->args->time_to_die)
+		return (true);
+	return (false);
+}
+
+void	*routine(void *args)
+{
+	t_philo	*philo;
 	
-// 	gettimeofday(&timestamp, NULL);
-// 	pthread_mutex_lock(&philo->left_fork.fork);
-// 	printf("[%lu] philo %d has taken a fork\n", timestamp.tv_usec, philo->philo_id);
-// 	philo->left_fork.is_taken = 1;
-// 	pthread_mutex_lock(&philo->right_fork.fork);
-// 	printf("[%lu] philo %d has taken a fork\n", timestamp.tv_usec, philo->philo_id);
-// 	printf("[%lu] philo %d is eating\n", timestamp.tv_usec, philo->philo_id);
-// 	philo->left_fork.is_taken = 1;
-// 	usleep(200);
-// }
-
-// void	*routine(void *args)
-// {
-// 	t_philo	*philo;
-// 	int		i;
-// 	struct timeval before;
-// 	struct timeval after;
-
-// 	i = 0;
-// 	philo = (t_philo *)args;
-// 	if (philo->philo_id % 2 == 1)
-// 		usleep(100);
-// 	gettimeofday(&before, NULL);
-// 	// printf("philo [%d]\n", philo->philo_id);
-// 	while(1)
-// 	{
-// 		if (philo->left_fork->is_taken == 0 && philo->right_fork->is_taken == 0)
-// 		{
-// 			gettimeofday(&before, NULL);
-// 			pthread_mutex_lock(&philo->left_fork->fork);
-// 			philo->left_fork->is_taken = 1;
-// 			printf("%ld %d has taken a fork\n", before.tv_usec / 1000, philo->philo_id);
-// 			pthread_mutex_lock(&philo->right_fork->fork);
-// 			philo->right_fork->is_taken = 1;
-// 			printf("%ld %d has taken a fork\n", before.tv_usec / 1000, philo->philo_id);
-// 			printf("%ld %d is eating\n", before.tv_usec, philo->philo_id);
-// 			usleep(philo->args->time_to_eat);
-// 			philo->has_eat++;
-// 			pthread_mutex_unlock(&philo->left_fork->fork);
-// 			pthread_mutex_unlock(&philo->right_fork->fork);
-// 			philo->left_fork->is_taken = 0;
-// 			philo->right_fork->is_taken = 0;
-// 			gettimeofday(&before, NULL);
-// 			printf("%ld %d is sleeping\n", before.tv_usec, philo->philo_id);
-// 			usleep(philo->args->time_to_sleep);
-// 			gettimeofday(&before, NULL);
-// 		}
-// 		// printf("before = %ld\n", before.tv_usec);
-// 		// printf("time to sleep = %d\n", philo->args->time_to_sleep);
-// 		printf("%ld %d is thinking\n", before.tv_usec, philo->philo_id);
-// 		// printf("after = %ld\n", after.tv_usec);
-// 		// long time;
-// 		// time = after.tv_usec - before.tv_usec;
-// 		// printf("time to die = %ld\n", time);
-// 		// exit(0);
-// 		while (philo->left_fork->is_taken == 1 && philo->right_fork->is_taken == 1)
-// 		{
-// 			gettimeofday(&after, NULL);
-// 			if (((after.tv_usec - before.tv_usec) / 1000) > philo->args->time_to_die)
-// 			{
-// 				gettimeofday(&before, NULL);
-// 				printf("%lu %d is dead\n", before.tv_usec, philo->philo_id);
-// 				// return (NULL);
-// 				exit(1);
-// 			}
-// 		}
-// 		if (philo->has_eat == philo->args->eat_max)
-// 		{
-// 			gettimeofday(&before, NULL);
-// 			printf("philo[%d] is full\n", philo->philo_id);
-// 			return (NULL);
-// 		}
-// 	}
-// }
-
-// void	*routine(void *args)
-// {
-// 	t_philo	*philo;
-// 	int		i;
-
-// 	i = 0;
-// 	philo = (t_philo *)args;
-// 	if (philo->philo_id % 2 == 1)
-// 		usleep(100);
-// 	while(1)
-// 	{
-// 		pthread_mutex_lock(&philo->left_fork);
-// 		printf("[time_stamp] philo %d has taken a fork", philo->philo_id);
-// 		pthread_mutex_lock(&philo->right_fork);
-// 		printf("[time_stamp] philo %d has taken a fork", philo->philo_id);
-// 		printf("[time_stamp] philo %d is eating", philo->philo_id);
-// 		usleep(20000);
-// 		pthread_mutex_unlock(&philo->left_fork);
-// 		pthread_mutex_unlock(&philo->right_fork);
-		
-				
-// 	}
-// }
+	philo = (t_philo *)args;
+	pthread_mutex_lock(&philo->args->mutex_start);
+	pthread_mutex_unlock(&philo->args->mutex_start);
+	init_time_philo(philo);
+	if (philo->philo_id % 2)
+	{
+		pthread_mutex_lock(&philo->right_fork->fork_mutex);
+		if (philo->right_fork->is_taken == 0)
+		{
+			philo->right_fork->is_taken == 1;
+			mtx_print(philo, "has taken a fork");
+		}
+		pthread_mutex_lock(&philo->left_fork->fork_mutex);
+		if (philo->left_fork->is_taken == 0)
+		{
+			philo->left_fork->is_taken == 1;
+			mtx_print(philo, "has taken a fork");
+		}
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->left_fork->fork_mutex);
+		if (philo->left_fork->is_taken == 0)
+		{
+			philo->left_fork->is_taken == 1;
+			mtx_print(philo, "has taken a fork");
+		}
+		pthread_mutex_lock(&philo->right_fork->fork_mutex);
+		if (philo->right_fork->is_taken == 0)
+		{
+			philo->right_fork->is_taken == 1;
+			mtx_print(philo, "has taken a fork");
+		}
+	}
+	mtx_print(philo, "is eating");
+	pthread_mutex_unlock(&philo->left_fork->fork_mutex);
+	pthread_mutex_unlock(&philo->right_fork->fork_mutex);
+}

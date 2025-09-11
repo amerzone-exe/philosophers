@@ -1,0 +1,37 @@
+Tant que le philosophe est vivant ET qu’aucun autre philosophe n’est mort :
+
+Debut : 
+- Essayer de prendre les deux fourchettes :
+
+Si on est sur un philo paire :
+	- Attendre que la fourchette droite soit disponible
+	- Changer l'etat de la fourchette droite
+	- Afficher : "<timestamp> <id> has taken a fork
+	- Attendre que la fourchette gauche soit disponible
+	- Changer l état de la fouchette gauche
+	- Afficher : "<timestamp> <id> has taken a fork
+
+Si on est sur un philo impaire faire l'inverse :
+	- Attendre que la fourchette gauche soit disponible
+	- Changer l'etat de la fourchette gauche
+	- Afficher : "<timestamp> <id> has taken a fork
+	- Attendre que la fourchette droite soit disponible
+	- Changer l état de la fouchette droite
+	- Afficher : "<timestamp> <id> has taken a fork
+
+Si les 2 fourchettes sont disponible :
+- Manger :
+	- Afficher : "<timestamp> <id> is eating"
+	- Faire un usleep de time_to_eat.
+	- Enregistrer l’heure actuelle comme "dernier repas"
+
+- Relâcher les deux fourchettes :
+	- Changer leur état à "disponible
+
+- Dormir :
+	- Afficher : "<timestamp> <id> is sleeping"
+	- Dormir pendant `time_to_sleep
+
+- Penser :
+	- Afficher : "<timestamp> <id> is thinking
+	- (Optionnel) Petite pause ou yield pour éviter 100% CPU
