@@ -1,0 +1,3 @@
+Faire en sorte que le philo qui a fini de manger ne renvoie pas toujours +1 
+sinon ca veut dire que dans le watcher le fait que tous les philo on fini de 
+manger ne se mettra pas bien a jour. Risque que tous les philos n'ai pas fini.

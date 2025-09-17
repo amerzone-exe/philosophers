@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:53:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/17 08:56:37 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/17 16:41:59 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ typedef struct s_philo
 {
 	unsigned int	philo_id;
 	unsigned int	nb_of_eat;
-	bool			has_eaten;
+	bool			is_done;
+	pthread_mutex_t	done_mutex;
+	int				is_full;
+	pthread_mutex_t	full_mutex;
 	size_t			start_time;
 	size_t			last_meal;
-	pthread_mutex_t	philo_mutex;
 	pthread_mutex_t	meal_mutex;
 	pthread_t		thread;
 	t_fork			*left_fork;

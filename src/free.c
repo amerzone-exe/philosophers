@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 08:52:43 by amerzone          #+#    #+#             */
-/*   Updated: 2025/09/17 09:03:00 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:01:40 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,23 @@ void	free_forks(t_fork *forks, t_args *args)
 		i++;
 	}
 }
+
+void	*destroy_fork(t_fork *fork, int until)
+{
+	int	i;
+
+	i = 0;
+	perror("mutex init error");
+	while (i < until)
+	{
+		pthread_mutex_destroy(&fork[i].fork_mutex);
+		i++;
+	}
+	free(fork);
+	return (NULL);
+}
+
+// void	destroy_args(t_args *args)
+// {
+	
+// }

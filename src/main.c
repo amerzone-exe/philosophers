@@ -3,16 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/17 09:35:23 by amerzone         ###   ########.fr       */
+/*   Updated: 2025/09/17 17:31:36 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	create_thread(t_philo *philo)
+/*termine la simulation et indique a tous les philos qu'ils doivent s'arreter*/
+void	*end_simulation(t_philo *philo, t_args *args)
+{
+	int	i;
+	
+	i = 0;
+	while (i < args->nb_of_philo)
+	{
+		pthread_mutex_lock(&philo[i].done_mutex);
+		philo[i].is_done = true;
+		pthread_mutex_unlock(&philo[i].done_mutex);
+		i++;
+	}
+	i = 0;
+	while (i < philo->args->nb_of_philo)
+	{
+		if (pthread_join(philo[i].thread, NULL) != 0)
+			exit_error("Error when creating threads");
+		i++;
+	}
+	return (NULL);
+}
+
+/*check si les philo sont mort ou si ils ont tous fini de manger*/
+int	watch_philo(t_philo *philo, t_args *args)
+{
+	int	i;
+	int	nb_philo;
+	int	are_full;
+
+	nb_philo = args->nb_of_philo;
+	are_full = 0;
+	while (1)
+	{
+		i = 0;
+		while (i < nb_philo)
+		{
+			if (check_dead(philo[i]))
+			{
+				mtx_print(&philo[i], "died");
+				if (end_simulation(philo, args) == NULL)
+					return (0);
+			}
+			pthread_mutex_lock(&philo[i].full_mutex);
+			are_full += philo[i].is_full;
+			pthread_mutex_unlock(&philo[i].full_mutex);
+			if (are_full == args->eat_max)
+			{
+				if (end_simulation(philo, args) == NULL)
+					return (0);
+			}
+			i++;
+		}
+	}
+}
+
+int	create_thread(t_philo *philo)
 {
 	int	i;
 
@@ -26,13 +82,8 @@ void	create_thread(t_philo *philo)
 	}
 	usleep(500);
 	pthread_mutex_unlock(&philo->args->mutex_start);
-	i = 0;
-	while (i < philo->args->nb_of_philo)
-	{
-		if (pthread_join(philo[i].thread, NULL) != 0)
-			exit_error("Error when creating threads");
-		i++;
-	}
+	if (watch_philo(philo, philo->args))
+		return (0);
 }
 
 int main(int argc, char **argv)
@@ -43,7 +94,8 @@ int main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		check_args(argc, argv);
-		args = init_args(argv, argc);
+		if (!init_args(&args, argv, argc))
+			exit(EXIT_FAILURE);
 		philo = init_philosophers(&args);
 		create_thread(philo);
 	}
@@ -51,12 +103,10 @@ int main(int argc, char **argv)
 		exit_error("Not enought argument");
 	else
 		exit_error("Too many argument");
-	
 	pthread_mutex_destroy(&args.died_mutex);
 	pthread_mutex_destroy(&args.print_mutex);
-	free(args.forks);
 	free(philo);
+	destroy_fork(args.forks, args.nb_of_philo);
 	destroy_mutexes(philo);
-	
 	return (0);
 }

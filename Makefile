@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+         #
+#    By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 11:08:12 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/16 19:00:35 by amerzone         ###   ########.fr        #
+#    Updated: 2025/09/17 17:04:22 by jocelyn          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/utils.c \
 		$(SRCDIR)/utils_2.c \
 		$(SRCDIR)/exit.c \
+		$(SRCDIR)/free.c \
 		
 
 OBJDIR = obj
