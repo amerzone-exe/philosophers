@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+         #
+#    By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 11:08:12 by jpiquet           #+#    #+#              #
-#    Updated: 2025/05/05 13:26:55 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/09/16 19:00:35 by amerzone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ INCDIR = inc
 SRCDIR = src
 SRC = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/parsing.c \
+		$(SRCDIR)/init.c \
+		$(SRCDIR)/routine.c \
+		$(SRCDIR)/mutex_lib.c \
 		$(SRCDIR)/utils.c \
 		$(SRCDIR)/utils_2.c \
 		$(SRCDIR)/exit.c \

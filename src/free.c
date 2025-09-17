@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex_lib.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 17:44:33 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/17 10:08:58 by amerzone         ###   ########.fr       */
+/*   Created: 2025/09/17 08:52:43 by amerzone          #+#    #+#             */
+/*   Updated: 2025/09/17 09:03:00 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	mtx_print(t_philo *philo, char *s)
+void	free_forks(t_fork *forks, t_args *args)
 {
-	size_t timestamp;
+	int	i;
 
-	timestamp = get_real_time() - philo->start_time;
-	pthread_mutex_lock(&philo->args->print_mutex);
-	printf("%zu %d %s\n", timestamp, philo->philo_id, s);
-	pthread_mutex_unlock(&philo->args->print_mutex);
+	i = 0;
+	while (i < args->nb_of_philo)
+	{
+		pthread_mutex_destroy(&forks[i].fork_mutex);
+		i++;
+	}
 }
-
-

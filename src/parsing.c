@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 09:10:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/05/06 13:47:26 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/17 09:58:59 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	check_args(int argc, char **argv)
 	j = 1;
 	if (argc == 6)
 	{
-		while (j < argc - 2)
+		while (j < argc)
 		{
 			if (!string_is_valid(argv[j]))
 				exit_error("Only numbers are valid");
 			j++;
 		}
-		check_last_args(argv[argc - 1]);
+		// check_last_args(argv[argc - 1]);
 	}
 }

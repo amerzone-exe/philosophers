@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jocelyn.piquet1998@gmail.com>     +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/11 17:52:13 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/17 09:35:23 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	create_thread(t_philo *philo)
 			exit_error("Error when creating threads");
 		i++;
 	}
-	usleep(100);
+	usleep(500);
 	pthread_mutex_unlock(&philo->args->mutex_start);
 	i = 0;
 	while (i < philo->args->nb_of_philo)
@@ -54,12 +54,8 @@ int main(int argc, char **argv)
 	
 	pthread_mutex_destroy(&args.died_mutex);
 	pthread_mutex_destroy(&args.print_mutex);
-	pthread_mutex_destroy(&args.fork_mutex);
-	//free fork
 	free(args.forks);
-	//destroy mutexes
 	free(philo);
-	//free philo
 	destroy_mutexes(philo);
 	
 	return (0);
