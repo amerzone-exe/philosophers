@@ -5,3 +5,5 @@ manger ne se mettra pas bien a jour. Risque que tous les philos n'ai pas fini.
 Probleme avec le fait que ca continue d'ecrire meme lorsqu'un philo est mort.
 
 Problème rien ne s'arrete meme quand il les philo sont full.
+
+Checker lorsqu'on le lance plusieur fois ca fini par faire de la merde.
