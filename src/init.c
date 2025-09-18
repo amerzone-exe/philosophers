@@ -6,11 +6,40 @@
 /*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/17 17:03:31 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/09/18 14:35:39 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	philo_mutex_init(t_philo *philo, t_args *args)
+{
+	int	i;
+
+	i = -1;
+	while (i++ < args->nb_of_philo)
+	{
+		if (pthread_mutex_init(&philo[i].full_mutex, NULL))
+		{
+			destroy_all(philo, args, i);
+			return (0);
+		}
+		if (pthread_mutex_init(&philo[i].done_mutex, NULL))
+		{
+			pthread_mutex_destroy(&philo[i].full_mutex);
+			destroy_all(philo, args, i);
+			return (0);
+		}
+		if (pthread_mutex_init(&philo[i].meal_mutex, NULL))
+		{
+			pthread_mutex_destroy(&philo[i].full_mutex);
+			pthread_mutex_destroy(&philo[i].done_mutex);
+			destroy_all(philo, args, i);
+			return (0);
+		}
+	}
+	return (1);
+}
 
 t_philo	*init_philosophers(t_args *args)
 {
@@ -22,7 +51,7 @@ t_philo	*init_philosophers(t_args *args)
 	if (!philo)
 	{
 		destroy_fork(args->forks, args->nb_of_philo);
-		// destroy_args(args);
+		destroy_args(args);
 		exit_error("Error during malloc of philosophers");
 	}
 	while (i < args->nb_of_philo)
@@ -32,13 +61,12 @@ t_philo	*init_philosophers(t_args *args)
 		philo[i].left_fork = &args->forks[i];
 		philo[i].right_fork = &args->forks[(i + 1) % args->nb_of_philo];
 		philo[i].is_full = 0;
-		philo[i].is_done = false;
+		philo[i].end_sim = false;
 		philo[i].nb_of_eat = 0;
-		pthread_mutex_init(&philo[i].full_mutex, NULL);
-		pthread_mutex_init(&philo[i].done_mutex, NULL);
-		pthread_mutex_init(&philo[i].meal_mutex, NULL);
 		i++;
 	}
+	if (!philo_mutex_init(philo, args))
+		exit_error("Error during intialisation of mutexes");
 	return (philo);
 }
 
@@ -61,10 +89,31 @@ t_fork	*init_forks(int nb_philo)
 	return (forks);
 }
 
-void	*init_args(t_args *args, char **argv, int argc)
+int	init_mutex_args(t_args *args)
 {
-	char	*last_param;
+	if (pthread_mutex_init(&args->mutex_start, NULL))
+	{
+		destroy_fork(args->forks, args->nb_of_philo);
+		return (0);
+	}
+	if (pthread_mutex_init(&args->print_mutex, NULL))
+	{
+		pthread_mutex_destroy(&args->mutex_start);
+		destroy_fork(args->forks, args->nb_of_philo);
+		return (0);
+	}
+	if (pthread_mutex_init(&args->died_mutex, NULL))
+	{
+		pthread_mutex_destroy(&args->mutex_start);
+		pthread_mutex_destroy(&args->print_mutex);
+		destroy_fork(args->forks, args->nb_of_philo);
+		return (0);
+	}
+	return (1);
+}
 
+int	init_args(t_args *args, char **argv, int argc)
+{
 	args->nb_of_philo = my_atoi(argv[1]);
 	args->time_to_die = my_atoi(argv[2]);
 	args->time_to_eat = my_atoi(argv[3]);
@@ -75,19 +124,8 @@ void	*init_args(t_args *args, char **argv, int argc)
 		args->eat_max = -1;
 	args->forks = init_forks(args->nb_of_philo);
 	if (!args->forks)
-		return (NULL);
-	if (pthread_mutex_init(&args->mutex_start, NULL))
-		return (destroy_fork(args->forks, args->nb_of_philo));
-	if (pthread_mutex_init(&args->print_mutex, NULL))
-	{
-		pthread_mutex_destroy(&args->mutex_start);
-		return (destroy_fork(args->forks, args->nb_of_philo));
-	}
-	if (pthread_mutex_init(&args->died_mutex, NULL))
-	{
-		pthread_mutex_destroy(&args->mutex_start);
-		pthread_mutex_destroy(&args->died_mutex);
-		return (destroy_fork(args->forks, args->nb_of_philo));
-	}
-	return (args);
+		return (0);
+	if (!init_mutex_args(args))
+		return (0);
+	return (1);
 }

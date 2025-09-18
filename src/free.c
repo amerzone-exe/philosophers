@@ -6,7 +6,7 @@
 /*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 08:52:43 by amerzone          #+#    #+#             */
-/*   Updated: 2025/09/17 17:01:40 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/09/18 11:52:54 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,24 @@ void	*destroy_fork(t_fork *fork, int until)
 	return (NULL);
 }
 
-// void	destroy_args(t_args *args)
-// {
-	
-// }
+void	destroy_args(t_args *args)
+{
+	pthread_mutex_destroy(&args->mutex_start);
+	pthread_mutex_destroy(&args->print_mutex);
+}
+
+void	destroy_all(t_philo *philo, t_args *args, int until)
+{
+	int	i;
+
+	i = 0;
+	destroy_fork(args->forks, args->nb_of_philo);
+	destroy_args(args);
+	while (i < until)
+	{
+		pthread_mutex_destroy(&philo[i].full_mutex);
+		pthread_mutex_destroy(&philo[i].done_mutex);
+		pthread_mutex_destroy(&philo[i].meal_mutex);
+	}
+	free(philo);
+}
