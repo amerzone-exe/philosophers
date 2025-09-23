@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:53:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/18 14:35:17 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/09/23 22:24:31 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,21 @@ typedef struct s_args
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
+	bool			end_sim;
+	pthread_mutex_t	done_mutex;
 	int				eat_max;
 	int 			nb_of_philo;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	mutex_start;
-	pthread_mutex_t	died_mutex;
-	bool			philo_died;
+	size_t			start_time_global;
 }t_args;
 
 typedef struct s_philo
 {
 	unsigned int	philo_id;
 	int				nb_of_eat;
-	bool			end_sim;
-	pthread_mutex_t	done_mutex;
+	bool			*end_sim;
+	// pthread_mutex_t	done_mutex;
 	int				is_full;
 	pthread_mutex_t	full_mutex;
 	size_t			start_time;

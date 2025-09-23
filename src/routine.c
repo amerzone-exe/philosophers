@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:47:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/18 15:36:51 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/09/23 22:29:50 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-size_t	get_real_time()
+size_t	get_real_time(void)
 {
 	struct	timeval time;
 	size_t res;
@@ -124,12 +124,13 @@ int	philo_eating(t_philo *philo)
 
 int	is_done(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->done_mutex);
-	if (philo->end_sim)
+	pthread_mutex_lock(&philo->args->done_mutex);
+	if (philo->args->end_sim == true)
 	{
-		pthread_mutex_unlock(&philo->done_mutex);
+		pthread_mutex_unlock(&philo->args->done_mutex);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->args->done_mutex);
 	return (0);
 }
 
@@ -139,15 +140,16 @@ void	*routine(void *args)
 
 	philo = (t_philo *)args;
 	pthread_mutex_lock(&philo->args->mutex_start);
+	philo->start_time = philo->args->start_time_global;
+	philo->last_meal = philo->args->start_time_global;
 	pthread_mutex_unlock(&philo->args->mutex_start);
-	init_time_philo(philo);
+	// init_time_philo(philo);
 	if (philo->philo_id % 2 == 0)
 		my_usleep(philo->args->time_to_eat / 2, philo);
 	while (1)
 	{
 		if (is_done(philo))
 			break ;
-		pthread_mutex_unlock(&philo->done_mutex);
 		if (take_forks(philo))
 		{
 			philo_eating(philo);

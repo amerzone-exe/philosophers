@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 08:52:43 by amerzone          #+#    #+#             */
-/*   Updated: 2025/09/18 11:52:54 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/09/23 22:28:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	destroy_all(t_philo *philo, t_args *args, int until)
 	while (i < until)
 	{
 		pthread_mutex_destroy(&philo[i].full_mutex);
-		pthread_mutex_destroy(&philo[i].done_mutex);
 		pthread_mutex_destroy(&philo[i].meal_mutex);
 	}
 	free(philo);

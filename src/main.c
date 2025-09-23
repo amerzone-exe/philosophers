@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/18 15:22:51 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/09/23 22:19:59 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	*end_simulation(t_philo *philo, t_args *args)
 {
 	int	i;
 	
-	i = 0;
-	while (i < args->nb_of_philo)
-	{
-		pthread_mutex_lock(&philo[i].done_mutex);
-		philo[i].end_sim = true;
-		pthread_mutex_unlock(&philo[i].done_mutex);
-		i++;
-	}
+	pthread_mutex_lock(&args->done_mutex);
+	philo->args->end_sim = true;
+	pthread_mutex_unlock(&args->done_mutex);
+	// while (i < args->nb_of_philo)
+	// {
+	// 	pthread_mutex_lock(&philo[i].done_mutex);
+	// 	philo[i].end_sim = true;
+	// 	pthread_mutex_unlock(&philo[i].done_mutex);
+	// 	i++;
+	// }
 	i = 0;
 	while (i < args->nb_of_philo)
 	{
@@ -90,6 +92,7 @@ int	create_thread(t_philo *philo)
 			exit_error("Error when creating threads");
 		i++;
 	}
+	philo->args->start_time_global = get_real_time();
 	usleep(500);
 	pthread_mutex_unlock(&philo->args->mutex_start);
 	if (watch_philo(philo, philo->args))

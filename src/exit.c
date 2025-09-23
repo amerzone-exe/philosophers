@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:22:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/17 17:02:39 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/09/23 22:28:25 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	destroy_mutexes(t_philo *philo)
 	i = 0;
 	while (i < philo->args->nb_of_philo)
 	{
-		pthread_mutex_destroy(&philo[i].done_mutex);
 		pthread_mutex_destroy(&philo[i].full_mutex);
 		pthread_mutex_destroy(&philo[i].meal_mutex);
 		i++;
