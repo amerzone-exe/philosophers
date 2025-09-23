@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 10:47:05 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 22:29:50 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 23:06:00 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ size_t	get_real_time(void)
 	return (res);
 }
 
-void	init_time_philo(t_philo *philo)
-{
-	philo->start_time = get_real_time();
-	philo->last_meal = get_real_time();
-}
+// void	init_time_philo(t_philo *philo)
+// {
+// 	philo->start_time = get_real_time();
+// 	philo->last_meal = get_real_time();
+// }
 
 /*checker si le temps qu'il y a eu avec le dernier repas est plus elever que le time to die*/
 int	check_dead(t_philo philo)
@@ -140,10 +140,13 @@ void	*routine(void *args)
 
 	philo = (t_philo *)args;
 	pthread_mutex_lock(&philo->args->mutex_start);
-	philo->start_time = philo->args->start_time_global;
-	philo->last_meal = philo->args->start_time_global;
+	// philo->start_time = philo->args->start_time_global;
 	pthread_mutex_unlock(&philo->args->mutex_start);
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal = philo->args->start_time_global;
+	pthread_mutex_unlock(&philo->meal_mutex);
 	// init_time_philo(philo);
+	mtx_print(philo, "is thinking");
 	if (philo->philo_id % 2 == 0)
 		my_usleep(philo->args->time_to_eat / 2, philo);
 	while (1)

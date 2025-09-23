@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 22:19:59 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/23 23:00:59 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	watch_philo(t_philo *philo, t_args *args)
 			are_full += philo[i].is_full;
 			// if (are_full != 0)
 			// (
-			// 	printf("philo %d are full = %d\n", philo[i].philo_id, are);
+			// 	printf("p201 2 diedhilo %d are full = %d\n", philo[i].philo_id, are);
 			// )
 			// pthread_mutex_unlock(&args->print_mutex);
 			pthread_mutex_unlock(&philo[i].full_mutex);
@@ -93,8 +93,8 @@ int	create_thread(t_philo *philo)
 		i++;
 	}
 	philo->args->start_time_global = get_real_time();
-	usleep(500);
 	pthread_mutex_unlock(&philo->args->mutex_start);
+	usleep(500);
 	if (watch_philo(philo, philo->args))
 		return (0);
 	return (1);
@@ -114,7 +114,7 @@ int main(int argc, char **argv)
 		create_thread(philo);
 	}
 	else if (argc < 5)
-		exit_error("Not enought argument");
+		exit_error("Not enough argument");
 	else
 		exit_error("Too many argument");
 	// pthread_mutex_destroy(&args.died_mutex);

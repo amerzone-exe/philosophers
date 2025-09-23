@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+         #
+#    By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 11:08:12 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/18 12:03:25 by jocelyn          ###   ########.fr        #
+#    Updated: 2025/09/23 22:52:32 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,10 @@ OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ) 
 		$(CC) $(FLAGS) -I $(INCDIR) -o $(NAME) $(OBJ)
 
-$(OBJDIR)/%.o : $(SRCDIR)/%.c | $(OBJDIR)
+$(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCDIR)/*.h | $(OBJDIR)
 			$(CC) $(FLAGS) -I $(INCDIR) -o $@ -c $<
 
 $(OBJDIR) :
