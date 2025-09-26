@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 22:25:13 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/26 09:36:55 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_philo	*init_philosophers(t_args *args)
 		philo[i].right_fork = &args->forks[(i + 1) % args->nb_of_philo];
 		philo[i].is_full = 0;
 		philo[i].nb_of_eat = 0;
+		philo[i].last_meal = 0;
+		philo[i].end_sim = &args->end_sim;
 		i++;
 	}
 	if (!philo_mutex_init(philo, args))
@@ -91,6 +93,13 @@ int	init_mutex_args(t_args *args)
 	if (pthread_mutex_init(&args->print_mutex, NULL))
 	{
 		pthread_mutex_destroy(&args->mutex_start);
+		destroy_fork(args->forks, args->nb_of_philo);
+		return (0);
+	}
+	if (pthread_mutex_init(&args->done_mutex, NULL))
+	{
+		pthread_mutex_destroy(&args->mutex_start);
+		pthread_mutex_destroy(&args->print_mutex);
 		destroy_fork(args->forks, args->nb_of_philo);
 		return (0);
 	}

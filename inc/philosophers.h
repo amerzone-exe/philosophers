@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:17:36 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/18 14:37:17 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/09/24 13:22:29 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		init_args(t_args *args, char **argv, int argc);
 
 size_t	get_real_time();
 void	init_time_philo(t_philo *philo);
-int		check_dead(t_philo philo);
+int	    check_dead(t_philo *ptr_philo);
 void	*routine(void *args);
 int		is_done(t_philo *philo);
 

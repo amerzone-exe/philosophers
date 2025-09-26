@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:53:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/23 22:52:56 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/24 13:02:55 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ typedef struct s_philo
 	unsigned int	philo_id;
 	int				nb_of_eat;
 	bool			*end_sim;
-	// pthread_mutex_t	done_mutex;
 	int				is_full;
 	pthread_mutex_t	full_mutex;
-	// size_t			start_time;
 	size_t			last_meal;
 	pthread_mutex_t	meal_mutex;
 	pthread_t		thread;
