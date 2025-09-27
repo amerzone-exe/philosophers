@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 08:52:43 by amerzone          #+#    #+#             */
-/*   Updated: 2025/09/24 13:03:11 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/27 17:43:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	*destroy_fork(t_fork *fork, int until)
 	int	i;
 
 	i = 0;
-	perror("mutex init error");
 	while (i < until)
 	{
 		pthread_mutex_destroy(&fork[i].fork_mutex);
@@ -43,6 +42,7 @@ void	destroy_args(t_args *args)
 {
 	pthread_mutex_destroy(&args->mutex_start);
 	pthread_mutex_destroy(&args->print_mutex);
+	pthread_mutex_destroy(&args->done_mutex);
 }
 
 void	destroy_all(t_philo *philo, t_args *args, int until)

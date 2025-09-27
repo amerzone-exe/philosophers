@@ -6,7 +6,7 @@
 #    By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 11:08:12 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/24 16:19:48 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/09/27 17:44:16 by jpiquet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ CC = cc
 
 NAME = philo
 
-FLAGS = -Wall -Wextra -Werror -pthread -g3
-#FLAGS = -pthread -g3
+FLAGS = -Wall -Wextra -Werror -pthread
 
 INCDIR = inc
 
@@ -28,8 +27,6 @@ SRC = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/parsing.c \
 		$(SRCDIR)/routine.c \
 		$(SRCDIR)/utils.c \
-		$(SRCDIR)/utils_2.c \
-		
 
 OBJDIR = obj
 OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))

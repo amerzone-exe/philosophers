@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:17:36 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/24 13:22:29 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/27 18:03:31 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@
 # include <stdbool.h>
 # include "philo_struct.h"
 
-char	*ft_strtrim(char const *s1, char const *set);
 int		my_atoi(const char *nptr);
 
 // parsing
 
 void	check_args(int argc, char **argv);
 int 	string_is_valid(char *str);
-int		is_bracket(int c);
 int		is_whitespace(int c);
 int		ft_isdigit(int c);
 void	exit_error(const char *str);
@@ -38,7 +36,11 @@ void	exit_error(const char *str);
 
 t_philo	*init_philosophers(t_args *args);
 t_fork	*init_forks(int nb_philo);
-int		init_args(t_args *args, char **argv, int argc);
+void	init_args(t_args *args, char **argv, int argc);
+
+// watch
+
+int	watch_philo(t_philo *philo, t_args *args);
 
 // routine
 
@@ -46,7 +48,12 @@ size_t	get_real_time();
 void	init_time_philo(t_philo *philo);
 int	    check_dead(t_philo *ptr_philo);
 void	*routine(void *args);
-int		is_done(t_philo *philo);
+bool	is_done(t_philo *philo);
+
+// action
+
+bool		philo_eating(t_philo *philo);
+bool		philo_sleeping(t_philo *philo);
 
 // mutex_lib
 

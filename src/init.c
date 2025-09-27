@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/27 13:38:12 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/27 17:47:29 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_philo	*init_philosophers(t_args *args)
 		i++;
 	}
 	if (!philo_mutex_init(philo, args))
-		exit_error("Error during intialisation of mutexes");
+		exit_error("Error during mutexes initialisation");
 	return (philo);
 }
 
@@ -106,7 +106,7 @@ int	init_mutex_args(t_args *args)
 	return (1);
 }
 
-int	init_args(t_args *args, char **argv, int argc)
+void	init_args(t_args *args, char **argv, int argc)
 {
 	args->nb_of_philo = my_atoi(argv[1]);
 	args->time_to_die = my_atoi(argv[2]);
@@ -116,11 +116,8 @@ int	init_args(t_args *args, char **argv, int argc)
 		args->eat_max = my_atoi(argv[5]);
 	else 
 		args->eat_max = -1;
-	args->forks = init_forks(args->nb_of_philo);
 	args->end_sim = false;
-	if (!args->forks)
-		return (0);
+	args->forks = init_forks(args->nb_of_philo);
 	if (!init_mutex_args(args))
-		return (0);
-	return (1);
+		exit_error("Error during mutexes initialisation");
 }
