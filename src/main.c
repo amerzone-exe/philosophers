@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/26 11:13:21 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/27 13:11:16 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	watch_philo(t_philo *philo, t_args *args)
 	int	are_full;
 
 	nb_philo = args->nb_of_philo;
-	usleep(2000);
+	// usleep(600);
 	while (1)
 	{
 		i = 0;
@@ -60,8 +60,9 @@ int	watch_philo(t_philo *philo, t_args *args)
 				if (end_simulation(philo, args) == NULL)
 					return (0);
 			}
-			i++;
+			++i;
 		}
+		usleep(500);
 	}
 }
 
@@ -86,7 +87,7 @@ int	create_thread(t_philo *philo)
 	}
 	// printf("Start time = %zu\n", philo->args->start_time_global);
 	pthread_mutex_unlock(&philo->args->mutex_start);
-	usleep(500);
+	// usleep(500);
 	if (watch_philo(philo, philo->args))
 		return (0);
 	return (1);

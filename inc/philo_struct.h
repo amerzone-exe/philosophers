@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 17:53:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/24 13:02:55 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/27 13:32:20 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define PHILO_STRUCT_H
 
 #include "philosophers.h"
+
+/* creer une structure qui puisse etre envoyé dans 
+les fonctions qui check les variable mutexé*/
 
 typedef struct s_fork
 {
