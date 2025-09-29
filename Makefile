@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+         #
+#    By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/16 11:08:12 by jpiquet           #+#    #+#              #
-#    Updated: 2025/09/27 17:44:16 by jpiquet          ###   ########.fr        #
+#    Updated: 2025/09/28 15:04:20 by amerzone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,19 +14,23 @@ CC = cc
 
 NAME = philo
 
-FLAGS = -Wall -Wextra -Werror -pthread
+FLAGS = -Wall -Wextra -Werror -pthread -g -O2
 
 INCDIR = inc
 
 SRCDIR = src
 SRC = 	$(SRCDIR)/main.c \
+		$(SRCDIR)/action.c \
 		$(SRCDIR)/exit.c \
+		$(SRCDIR)/fork.c \
 		$(SRCDIR)/free.c \
 		$(SRCDIR)/init.c \
 		$(SRCDIR)/mutex_lib.c \
 		$(SRCDIR)/parsing.c \
 		$(SRCDIR)/routine.c \
+		$(SRCDIR)/time.c \
 		$(SRCDIR)/utils.c \
+		$(SRCDIR)/watcher.c \
 
 OBJDIR = obj
 OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))

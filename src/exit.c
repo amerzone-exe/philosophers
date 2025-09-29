@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:22:43 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/27 17:48:16 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/28 13:13:09 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	exit_error(const char *str)
 {
-	perror(str);
-	exit (1);
+	printf("%s\n", str);
+	exit (EXIT_FAILURE);
 }

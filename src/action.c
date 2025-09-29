@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 16:56:59 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/27 18:03:14 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/28 14:44:23 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ bool philo_eating(t_philo *philo)
 	sim_is_done = false;
 	mtx_print(philo, "is eating");
 	update_last_meal(philo);
-	update_meals(philo);
 	sim_is_done = my_usleep(philo->args->time_to_eat, philo);
+	update_meals(philo);
 	drop_forks(philo);
 	return (sim_is_done);
 }

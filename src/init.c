@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/27 17:47:29 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/28 13:12:12 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ int	init_mutex_args(t_args *args)
 void	init_args(t_args *args, char **argv, int argc)
 {
 	args->nb_of_philo = my_atoi(argv[1]);
+	if (args->nb_of_philo == 0)
+		exit_error("Need one philosopher at least");
 	args->time_to_die = my_atoi(argv[2]);
 	args->time_to_eat = my_atoi(argv[3]);
 	args->time_to_sleep = my_atoi(argv[4]);

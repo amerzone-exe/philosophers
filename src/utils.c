@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:20:26 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/27 17:34:27 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/28 13:23:34 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,6 @@ int	ft_isdigit(int c)
 		return (1);
 	else
 	return (0);
-}
-
-int string_is_valid(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '+')
-			i++;
-		if (str[i] == '-')
-			exit_error("You cannot enter a negative number");
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 int	my_atoi(const char *nptr)

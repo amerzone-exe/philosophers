@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amerzone <amerzone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/27 17:47:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/28 14:01:59 by amerzone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	create_thread(t_philo *philo)
 	while (i < philo->args->nb_of_philo)
 	{
 		if (pthread_create(&philo[i].thread, NULL, &routine, &philo[i]) != 0)
-			exit_error("Error when creating threads");
+		{
+			end_simulation(philo, philo->args, i);
+			return (0);
+		}
 		i++;
 	}
 	i = 0;
@@ -45,15 +48,14 @@ int main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		check_args(argc, argv);
-		init_args(&args, argv, argc)
-		// philo = init_philosophers(&args);
-		// create_thread(philo);
+		init_args(&args, argv, argc);
+		philo = init_philosophers(&args);
+		create_thread(philo);
 	}
 	else if (argc < 5)
 		exit_error("Not enough argument");
 	else
 		exit_error("Too many argument");
-	printf("nb_of_philo = %d\n", args.nb_of_philo);
 	destroy_all(philo, &args, args.nb_of_philo);
 	return (0);
 }
