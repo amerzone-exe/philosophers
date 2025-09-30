@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 13:26:23 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:25:33 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ void	init_args(t_args *args, char **argv, int argc)
 	args->end_sim = false;
 	args->forks = init_forks(args->nb_of_philo);
 	if (!init_mutex_args(args))
-	{
-		destroy_fork(args->forks, args->nb_of_philo);
 		exit_error("Error during mutexes initialisation");
-	}
 }
 
 static t_fork	*init_forks(int nb_philo)

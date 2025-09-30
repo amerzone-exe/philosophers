@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 16:51:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/29 15:19:44 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:21:28 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		*end_simulation(t_philo *philo, t_args *args, int until);
 static int	check_dead(t_philo *ptr_philo);
 static int	is_full(t_philo *philo);
 
-/*check si les philo sont mort ou si ils ont tous fini de manger*/
+/*Check if a philo is dead or finished eating*/
 
 int	watch_philo(t_philo *philo, t_args *args)
 {
