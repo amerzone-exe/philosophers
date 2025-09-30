@@ -6,27 +6,25 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 16:51:13 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 15:21:28 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:55:34 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include "philo_struct.h"
 
-int			watch_philo(t_philo *philo, t_args *args);
-void		*end_simulation(t_philo *philo, t_args *args, int until);
+int			watch_philo(t_philo *philo, t_args *args, int nb_philo);
+void		end_simulation(t_philo *philo, t_args *args, int until);
 static int	check_dead(t_philo *ptr_philo);
 static int	is_full(t_philo *philo);
 
 /*Check if a philo is dead or finished eating*/
 
-int	watch_philo(t_philo *philo, t_args *args)
+int	watch_philo(t_philo *philo, t_args *args, int nb_philo)
 {
 	int	i;
-	int	nb_philo;
 	int	are_full;
 
-	nb_philo = args->nb_of_philo;
 	while (1)
 	{
 		i = 0;
@@ -35,14 +33,16 @@ int	watch_philo(t_philo *philo, t_args *args)
 		{
 			if (check_dead(&philo[i]))
 			{
-				mtx_print(&philo[i], "died");
-				if (end_simulation(philo, args, nb_philo) == NULL)
-					return (0);
+				end_simulation(philo, args, nb_philo);
+				mtx_print_die(&philo[i], "died");
+				return (0);
 			}
 			are_full += is_full(&philo[i]);
 			if (are_full == nb_philo)
-				if (end_simulation(philo, args, nb_philo) == NULL)
-					return (0);
+			{
+				end_simulation(philo, args, nb_philo);
+				return (0);
+			}
 			++i;
 		}
 		usleep(500);
@@ -52,7 +52,7 @@ int	watch_philo(t_philo *philo, t_args *args)
 /* End the simulation by telling to all the philo 
 thats someone died or is full */
 
-void	*end_simulation(t_philo *philo, t_args *args, int until)
+void	end_simulation(t_philo *philo, t_args *args, int until)
 {
 	int	i;
 
@@ -65,7 +65,6 @@ void	*end_simulation(t_philo *philo, t_args *args, int until)
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
-	return (NULL);
 }
 
 /* Check if the time since last meal of a philo is 

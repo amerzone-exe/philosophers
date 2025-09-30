@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 15:16:59 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:54:32 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	create_thread(t_philo *philo)
 		i++;
 	}
 	pthread_mutex_unlock(&philo->args->mutex_start);
-	watch_philo(philo, philo->args);
+	watch_philo(philo, philo->args, philo->args->nb_of_philo);
 }
 
 int	main(int argc, char **argv)

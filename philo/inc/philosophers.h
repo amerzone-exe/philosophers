@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:17:36 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 16:10:54 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:55:17 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	drop_forks(t_philo *philo);
 
 // watch
 
-int		watch_philo(t_philo *philo, t_args *args);
-void	*end_simulation(t_philo *philo, t_args *args, int until);
+int		watch_philo(t_philo *philo, t_args *args, int nb_philo);
+void	end_simulation(t_philo *philo, t_args *args, int until);
 
 // routine
 
@@ -70,6 +70,7 @@ size_t	get_real_time(void);
 // mutex_lib
 
 void	mtx_print(t_philo *philo, char *s);
+void	mtx_print_die(t_philo *philo, char *s);
 
 // free
 
