@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:20:26 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/29 13:23:59 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:29:18 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	my_atoi(const char *nptr)
 		if ((n * sign) > INT_MAX)
 			exit_error("Stay under int max");
 		if ((n * sign) < INT_MIN)
-			return (INT_MIN);
+			exit_error("It can't be a negative number");
 		i++;
 	}
 	return ((int)n * sign);
