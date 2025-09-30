@@ -6,34 +6,15 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/29 15:18:41 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 13:26:23 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	philo_mutex_init(t_philo *philo, t_args *args)
-{
-	int	i;
-
-	i = 0;
-	while (i < args->nb_of_philo)
-	{
-		if (pthread_mutex_init(&philo[i].full_mutex, NULL))
-		{
-			destroy_all(philo, args, i);
-			return (0);
-		}
-		if (pthread_mutex_init(&philo[i].meal_mutex, NULL))
-		{
-			pthread_mutex_destroy(&philo[i].full_mutex);
-			destroy_all(philo, args, i);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
+static int		philo_mutex_init(t_philo *philo, t_args *args);
+static int		init_mutex_args(t_args *args);
+static t_fork	*init_forks(int nb_philo);
 
 t_philo	*init_philosophers(t_args *args)
 {
@@ -61,7 +42,28 @@ t_philo	*init_philosophers(t_args *args)
 	return (philo);
 }
 
-t_fork	*init_forks(int nb_philo)
+void	init_args(t_args *args, char **argv, int argc)
+{
+	args->nb_of_philo = my_atoi(argv[1]);
+	if (args->nb_of_philo == 0)
+		exit_error("Need one philosopher at least");
+	args->time_to_die = my_atoi(argv[2]);
+	args->time_to_eat = my_atoi(argv[3]);
+	args->time_to_sleep = my_atoi(argv[4]);
+	if (argc == 6)
+		args->eat_max = my_atoi(argv[5]);
+	else
+		args->eat_max = -1;
+	args->end_sim = false;
+	args->forks = init_forks(args->nb_of_philo);
+	if (!init_mutex_args(args))
+	{
+		destroy_fork(args->forks, args->nb_of_philo);
+		exit_error("Error during mutexes initialisation");
+	}
+}
+
+static t_fork	*init_forks(int nb_philo)
 {
 	int		i;
 	t_fork	*forks;
@@ -83,7 +85,30 @@ t_fork	*init_forks(int nb_philo)
 	return (forks);
 }
 
-int	init_mutex_args(t_args *args)
+static int	philo_mutex_init(t_philo *philo, t_args *args)
+{
+	int	i;
+
+	i = 0;
+	while (i < args->nb_of_philo)
+	{
+		if (pthread_mutex_init(&philo[i].full_mutex, NULL))
+		{
+			destroy_all(philo, args, i);
+			return (0);
+		}
+		if (pthread_mutex_init(&philo[i].meal_mutex, NULL))
+		{
+			pthread_mutex_destroy(&philo[i].full_mutex);
+			destroy_all(philo, args, i);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+static int	init_mutex_args(t_args *args)
 {
 	if (pthread_mutex_init(&args->mutex_start, NULL))
 	{
@@ -104,25 +129,4 @@ int	init_mutex_args(t_args *args)
 		return (0);
 	}
 	return (1);
-}
-
-void	init_args(t_args *args, char **argv, int argc)
-{
-	args->nb_of_philo = my_atoi(argv[1]);
-	if (args->nb_of_philo == 0)
-		exit_error("Need one philosopher at least");
-	args->time_to_die = my_atoi(argv[2]);
-	args->time_to_eat = my_atoi(argv[3]);
-	args->time_to_sleep = my_atoi(argv[4]);
-	if (argc == 6)
-		args->eat_max = my_atoi(argv[5]);
-	else
-		args->eat_max = -1;
-	args->end_sim = false;
-	args->forks = init_forks(args->nb_of_philo);
-	if (!init_mutex_args(args))
-	{
-		destroy_fork(args->forks, args->nb_of_philo);
-		exit_error("Error during mutexes initialisation");
-	}
 }

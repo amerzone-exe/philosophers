@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 09:10:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/29 13:45:25 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 13:27:36 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	string_is_valid(char *str)
 
 	i = 0;
 	if (!str || !*str)
-		return (0);
+		exit_error("It can't be an empty string");
 	while (str[i])
 	{
 		while (str[i] && is_whitespace(str[i]))

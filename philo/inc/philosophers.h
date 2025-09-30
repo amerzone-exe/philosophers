@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:17:36 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/29 10:39:54 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 12:58:09 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		ft_isdigit(int c);
 // init
 
 t_philo	*init_philosophers(t_args *args);
-t_fork	*init_forks(int nb_philo);
 void	init_args(t_args *args, char **argv, int argc);
 
 // fork
