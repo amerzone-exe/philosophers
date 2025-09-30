@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 08:52:43 by amerzone          #+#    #+#             */
-/*   Updated: 2025/09/29 09:52:36 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:10:48 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_forks(t_fork *forks, t_args *args)
 	}
 }
 
-void	*destroy_fork(t_fork *fork, int until)
+void	destroy_fork(t_fork *fork, int until)
 {
 	int	i;
 
@@ -35,7 +35,6 @@ void	*destroy_fork(t_fork *fork, int until)
 		i++;
 	}
 	free(fork);
-	return (NULL);
 }
 
 void	destroy_args(t_args *args)

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:17:36 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 12:58:09 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:10:54 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	mtx_print(t_philo *philo, char *s);
 
 // free
 
-void	*destroy_fork(t_fork *fork, int until);
+void	destroy_fork(t_fork *fork, int until);
 void	destroy_args(t_args *args);
 void	destroy_all(t_philo *philo, t_args *args, int until);
 void	free_forks(t_fork *forks, t_args *args);

@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 15:25:33 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:09:51 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_philo	*init_philosophers(t_args *args)
 		i++;
 	}
 	if (!philo_mutex_init(philo, args))
-		exit_error("Error during mutexes initialisation");
+		exit_error("Error during philo mutexes initialisation");
 	return (philo);
 }
 
@@ -46,18 +46,22 @@ void	init_args(t_args *args, char **argv, int argc)
 {
 	args->nb_of_philo = my_atoi(argv[1]);
 	if (args->nb_of_philo == 0)
-		exit_error("Need one philosopher at least");
+		exit_error("Need at least one philosopher");
 	args->time_to_die = my_atoi(argv[2]);
 	args->time_to_eat = my_atoi(argv[3]);
 	args->time_to_sleep = my_atoi(argv[4]);
 	if (argc == 6)
+	{
 		args->eat_max = my_atoi(argv[5]);
+		if (args->eat_max == 0)
+			exit_error("Need at least 1 meal");
+	}
 	else
 		args->eat_max = -1;
 	args->end_sim = false;
 	args->forks = init_forks(args->nb_of_philo);
 	if (!init_mutex_args(args))
-		exit_error("Error during mutexes initialisation");
+		exit_error("Error during args mutexes initialisation");
 }
 
 static t_fork	*init_forks(int nb_philo)
@@ -75,7 +79,7 @@ static t_fork	*init_forks(int nb_philo)
 		if (pthread_mutex_init(&forks[i].fork_mutex, NULL))
 		{
 			destroy_fork(forks, i);
-			exit(EXIT_FAILURE);
+			exit_error("Error during forks mutexes initialisation");
 		}
 		i++;
 	}
