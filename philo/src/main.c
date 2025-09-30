@@ -6,13 +6,13 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/29 13:51:35 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/09/30 15:16:59 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	create_thread(t_philo *philo)
+static void	create_thread(t_philo *philo)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ int	create_thread(t_philo *philo)
 		{
 			pthread_mutex_unlock(&philo->args->mutex_start);
 			end_simulation(philo, philo->args, i);
-			return (0);
+			return ;
 		}
 		i++;
 	}
@@ -36,9 +36,7 @@ int	create_thread(t_philo *philo)
 		i++;
 	}
 	pthread_mutex_unlock(&philo->args->mutex_start);
-	if (watch_philo(philo, philo->args))
-		return (0);
-	return (1);
+	watch_philo(philo, philo->args);
 }
 
 int	main(int argc, char **argv)
