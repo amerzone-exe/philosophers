@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:10:15 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 18:54:32 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/10/01 14:37:03 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	create_thread(t_philo *philo)
+static int	create_thread(t_philo *philo)
 {
 	int	i;
 
@@ -24,7 +24,7 @@ static void	create_thread(t_philo *philo)
 		{
 			pthread_mutex_unlock(&philo->args->mutex_start);
 			end_simulation(philo, philo->args, i);
-			return ;
+			return (1);
 		}
 		i++;
 	}
@@ -37,6 +37,7 @@ static void	create_thread(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->args->mutex_start);
 	watch_philo(philo, philo->args, philo->args->nb_of_philo);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -47,15 +48,20 @@ int	main(int argc, char **argv)
 	philo = NULL;
 	if (argc == 5 || argc == 6)
 	{
-		check_args(argc, argv);
-		init_args(&args, argv, argc);
+		if (check_args(argc, argv))
+			return (1);
+		if (init_args(&args, argv, argc))
+			return (1);
 		philo = init_philosophers(&args);
-		create_thread(philo);
+		if (!philo)
+			return (1);
+		if (create_thread(philo))
+			return (1);
 	}
 	else if (argc < 5)
-		exit_error("Not enough arguments");
+		return (exit_error("Not enough arguments"));
 	else
-		exit_error("Too many arguments");
+		return (exit_error("Too many arguments"));
 	destroy_all(philo, &args, args.nb_of_philo);
 	return (0);
 }

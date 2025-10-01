@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:17:36 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 18:55:17 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/10/01 14:33:38 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 
 // parsing
 
-void	check_args(int argc, char **argv);
+int		check_args(int argc, char **argv);
 
 // exit
 
-void	exit_error(const char *str);
-void	exit_and_destroy(t_args *args, const char *str);
+int		exit_error(const char *str);
+void	*exit_null(const char *str);
+int		exit_and_destroy(t_args *args, const char *str);
 
 // utils
 
@@ -40,7 +41,7 @@ int		ft_isdigit(int c);
 // init
 
 t_philo	*init_philosophers(t_args *args);
-void	init_args(t_args *args, char **argv, int argc);
+int		init_args(t_args *args, char **argv, int argc);
 
 // fork
 

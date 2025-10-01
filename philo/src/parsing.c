@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 09:10:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 18:39:33 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/10/01 14:38:12 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 static int	string_is_valid(char *str);
-void		check_args(int argc, char **argv);
+int			check_args(int argc, char **argv);
 
-void	check_args(int argc, char **argv)
+int	check_args(int argc, char **argv)
 {
 	int	j;
 
@@ -25,7 +25,7 @@ void	check_args(int argc, char **argv)
 		while (j < argc)
 		{
 			if (!string_is_valid(argv[j]))
-				exit_error("Only numbers are valid");
+				return (exit_error("Only numbers are valid"));
 			j++;
 		}
 	}
@@ -35,10 +35,11 @@ void	check_args(int argc, char **argv)
 		while (j < argc)
 		{
 			if (!string_is_valid(argv[j]))
-				exit_error("Only numbers are valid");
+				return (exit_error("Only numbers are valid"));
 			j++;
 		}
 	}
+	return (0);
 }
 
 static int	string_is_valid(char *str)

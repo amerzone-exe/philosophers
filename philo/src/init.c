@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 16:09:51 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/10/01 14:32:42 by jocelyn          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_philo	*init_philosophers(t_args *args)
 	i = 0;
 	philo = malloc(sizeof(t_philo) * args->nb_of_philo);
 	if (!philo)
-		exit_and_destroy(args, "Error during philo allocation");
+		return (NULL);
 	while (i < args->nb_of_philo)
 	{
 		philo[i].philo_id = i + 1;
@@ -38,15 +38,15 @@ t_philo	*init_philosophers(t_args *args)
 		i++;
 	}
 	if (!philo_mutex_init(philo, args))
-		exit_error("Error during philo mutexes initialisation");
+		return (exit_null("Error during philo mutexes initialisation"));
 	return (philo);
 }
 
-void	init_args(t_args *args, char **argv, int argc)
+int	init_args(t_args *args, char **argv, int argc)
 {
 	args->nb_of_philo = my_atoi(argv[1]);
 	if (args->nb_of_philo == 0)
-		exit_error("Need at least one philosopher");
+		return (exit_error("Need at least one philosopher"));
 	args->time_to_die = my_atoi(argv[2]);
 	args->time_to_eat = my_atoi(argv[3]);
 	args->time_to_sleep = my_atoi(argv[4]);
@@ -54,14 +54,15 @@ void	init_args(t_args *args, char **argv, int argc)
 	{
 		args->eat_max = my_atoi(argv[5]);
 		if (args->eat_max == 0)
-			exit_error("Need at least 1 meal");
+			return (exit_error("Need at least 1 meal"));
 	}
 	else
 		args->eat_max = -1;
 	args->end_sim = false;
 	args->forks = init_forks(args->nb_of_philo);
 	if (!init_mutex_args(args))
-		exit_error("Error during args mutexes initialisation");
+		return (exit_error("Error during args mutexes initialisation"));
+	return (0);
 }
 
 static t_fork	*init_forks(int nb_philo)
@@ -72,14 +73,14 @@ static t_fork	*init_forks(int nb_philo)
 	i = 0;
 	forks = malloc(sizeof(t_fork) * nb_philo);
 	if (!forks)
-		exit_error("Error during forks allocation");
+		return (exit_null("Error during forks allocation"));
 	while (i < nb_philo)
 	{
 		forks[i].is_taken = false;
 		if (pthread_mutex_init(&forks[i].fork_mutex, NULL))
 		{
 			destroy_fork(forks, i);
-			exit_error("Error during forks mutexes initialisation");
+			return (exit_null("Error during philo mutexes initialisation"));
 		}
 		i++;
 	}
