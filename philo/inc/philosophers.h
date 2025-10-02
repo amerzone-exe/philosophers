@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:17:36 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/10/01 14:33:38 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:46:35 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		exit_and_destroy(t_args *args, const char *str);
 
 // utils
 
-int		my_atoi(const char *nptr);
+int		my_atoi(const char *nptr, int *error);
 int		is_whitespace(int c);
 int		ft_isdigit(int c);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jocelyn <jocelyn@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 09:10:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/10/01 14:38:12 by jocelyn          ###   ########.fr       */
+/*   Updated: 2025/10/02 11:29:56 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	check_args(int argc, char **argv)
 	{
 		while (j < argc)
 		{
-			if (!string_is_valid(argv[j]))
-				return (exit_error("Only numbers are valid"));
+			if (string_is_valid(argv[j]))
+				return (1);
 			j++;
 		}
 	}
@@ -34,8 +34,8 @@ int	check_args(int argc, char **argv)
 	{
 		while (j < argc)
 		{
-			if (!string_is_valid(argv[j]))
-				return (exit_error("Only numbers are valid"));
+			if (string_is_valid(argv[j]))
+				return (1);
 			j++;
 		}
 	}
@@ -48,16 +48,16 @@ static int	string_is_valid(char *str)
 
 	i = 0;
 	if (!str || !*str)
-		exit_error("It can't be an empty string");
+		return (exit_error("It can't be an empty string"));
 	while (str[i])
 	{
 		if (str[i] && str[i] == '+')
 			i++;
 		if (str[i] && str[i] == '-')
-			exit_error("You can't enter a negative number");
+			return (exit_error("You can't enter a negative number"));
 		if (!ft_isdigit(str[i]))
-			return (0);
+			return (exit_error("Only numbers are valid"));
 		i++;
 	}
-	return (1);
+	return (0);
 }

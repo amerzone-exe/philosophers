@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:20:26 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/09/30 15:29:18 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/10/02 12:20:26 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,22 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-int	my_atoi(const char *nptr)
+int	check_int_max(long long n, int sign, int *error)
+{
+	if ((n * sign) > INT_MAX)
+	{
+		*error = 1;
+		return (exit_error("Stay under int max"));
+	}
+	if ((n * sign) < INT_MIN)
+	{
+		*error = 1;
+		return (exit_error("It can't be a negative number"));
+	}
+	return (0);
+}
+
+int	my_atoi(const char *nptr, int *error)
 {
 	int			i;
 	long long	n;
@@ -60,10 +75,8 @@ int	my_atoi(const char *nptr)
 	while (nptr[i] && ft_isdigit(nptr[i]))
 	{
 		n = n * 10 + (nptr[i] - 48);
-		if ((n * sign) > INT_MAX)
-			exit_error("Stay under int max");
-		if ((n * sign) < INT_MIN)
-			exit_error("It can't be a negative number");
+		if (check_int_max(n, sign, error))
+			return (-1);
 		i++;
 	}
 	return ((int)n * sign);
