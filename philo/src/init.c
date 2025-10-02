@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 16:14:53 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/10/02 14:05:52 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:38:41 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_philo	*init_philosophers(t_args *args)
 	i = 0;
 	philo = malloc(sizeof(t_philo) * args->nb_of_philo);
 	if (!philo)
-		return (NULL);
+		return (exit_and_destroy(args, "Error during philo allocation"));
 	while (i < args->nb_of_philo)
 	{
 		philo[i].philo_id = i + 1;

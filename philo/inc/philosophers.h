@@ -6,7 +6,7 @@
 /*   By: jpiquet <jpiquet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:17:36 by jpiquet           #+#    #+#             */
-/*   Updated: 2025/10/02 11:46:35 by jpiquet          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:38:06 by jpiquet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		check_args(int argc, char **argv);
 
 int		exit_error(const char *str);
 void	*exit_null(const char *str);
-int		exit_and_destroy(t_args *args, const char *str);
+void	*exit_and_destroy(t_args *args, const char *str);
 
 // utils
 
